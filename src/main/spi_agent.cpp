@@ -47,7 +47,8 @@ using namespace Mads;
     float vx;
     float vy;
     uint8_t check;
-    uint8_t padding[66];
+    float flow;
+    uint8_t padding[62];
   }; // tot byte dimension: 96
 #pragma pack(pop)
 
@@ -195,6 +196,7 @@ int main(int argc, char *const *argv) {
             pkt.c = input.value("c", 0.0f);
             pkt.vx = input.value("vx", 0.0f);
             pkt.vy = input.value("vy", 0.0f);
+            pkt.flow = input.value("flow", 0.0f);
 
             if(pkt.x == 0.0f && pkt.y == 0.0f && pkt.z == 0.0f && pkt.a == 0.0f && pkt.c == 0.0f){
               pkt.start = 0xCC;
