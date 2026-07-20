@@ -222,7 +222,7 @@ int main(int argc, char *const *argv) {
             pkt.vy = input.value("vy", 0.0f);
             pkt.flow = input.value("flow", 0.0f);
 
-            if(pkt.x == 0.0f && pkt.y == 0.0f && pkt.z == 0.0f && pkt.a == 0.0f && pkt.c == 0.0f && input["rapid"]){
+            if(pkt.x == 0.0f && pkt.y == 0.0f && pkt.z == 0.0f && pkt.a == 0.0f && pkt.c == 0.0f){
               pkt.start = 0xCC;
             } else {
               pkt.start = 0xAA;
