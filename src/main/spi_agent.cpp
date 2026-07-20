@@ -186,7 +186,31 @@ int main(int argc, char *const *argv) {
           auto msg = agent.last_message();
           auto in = json::parse(get<1>(msg));
 
-          if (in.contains("spi_input") && in["spi_input"].is_object()) {
+          if (in.contains("command") && in["command"] == "update_pids"){
+
+            if(in["axis"] == 0){
+              pkt.start = 0xDD;
+            } else if(in["axis"] == 1){
+              pkt.start = 0xEE;
+            }
+
+            pkt.x = in.value("kp", 0.0f);
+            pkt.y = in.value("kv", 0.0f);
+            pkt.z = in.value("ki", 0.0f);
+            pkt.a = in.value("kd", 0.0f);
+            pkt.c = in.value("ka", 0.0f);
+            pkt.vx = 0.0f;
+            pkt.vy = 0.0f;
+            pkt.flow = 0.0f;
+
+            uint8_t checksum_tx = 0;
+            uint8_t* ptr_tx = (uint8_t*)&pkt;
+            for(size_t i = 0; i < offsetof(Pack, check); i++) {
+                checksum_tx ^= ptr_tx[i];
+            }
+            pkt.check = checksum_tx;
+
+          } else if (in.contains("spi_input") && in["spi_input"].is_object()) {
             auto input = in["spi_input"];
             
             pkt.x = input.value("x", 0.0f);
