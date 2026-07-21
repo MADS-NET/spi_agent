@@ -228,6 +228,10 @@ int main(int argc, char *const *argv) {
               pkt.start = 0xAA;
             }
 
+            if(in.contains("command") && in["command"] == "rumble"){
+              pkt.start = 0xFF;
+            }
+
             uint8_t checksum_tx = 0;
             uint8_t* ptr_tx = (uint8_t*)&pkt;
             for(size_t i = 0; i < offsetof(Pack, check); i++) {
