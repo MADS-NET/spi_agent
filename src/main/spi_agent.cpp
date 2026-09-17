@@ -159,6 +159,7 @@ int main(int argc, char *const *argv) {
 
   // loop
   auto last_timestep = chrono::steady_clock::now();
+  auto last_receive_time = chrono::steady_clock::now();
   chrono::steady_clock::time_point now;
   double dt = 0, t = 0, t_in = 0, t_msg = 0;
   json status;
@@ -183,10 +184,13 @@ int main(int argc, char *const *argv) {
         // MADS -> SPI
         if (agent.receive(false) == message_type::json && agent.last_topic() == "setpoint") {
           
+          last_receive_time = now;
           auto msg = agent.last_message();
           auto in = json::parse(get<1>(msg));
 
-          if (in.contains("command") && in["command"] == "update_pids"){
+          if(in.contains("dummy")){
+            pkt.start = 0x77;
+          } else if (in.contains("command") && in["command"] == "update_pids"){
 
             if(in["axis"] == 0){
               pkt.start = 0xDD;
@@ -279,7 +283,7 @@ int main(int argc, char *const *argv) {
                  << " | Start: 0x" << (int)fb.start << dec << endl;
         } else {
 
-          if(fb.msg_id > last_id){
+          if(fb.msg_id != last_id){
             
             // new data
             last_id = fb.msg_id;
