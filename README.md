@@ -97,3 +97,7 @@ Example Output:
   "error": 0.02
 }
 ```
+
+## License
+
+Copyright 2026 Leonardo Pasquato. Licensed under the Apache License, Version 2.0 (see `LICENSE` and `NOTICE`).
