@@ -175,3 +175,7 @@ typedef struct __attribute__((packed)) {
 
 ### DMA Usage
 A convenient communication implementation on microcontrollers deals with DMA (Direct Memory Access): It serves as an automatic mapping from a declared memory section to an interested internal bus (`SPI` bus in this case, that tipically is APB1, but it depends on the microcontroller family).
+
+## License
+
+Copyright 2026 Leonardo Pasquato. Licensed under the Apache License, Version 2.0 (see `LICENSE` and `NOTICE`).
